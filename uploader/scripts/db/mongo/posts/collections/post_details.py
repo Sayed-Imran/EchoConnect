@@ -23,21 +23,21 @@ class Posts(MongoCollectionBaseClass):
         )
 
     def find_all_posts(self):
-        if posts := self.find(query={}):
-            return posts
+        if posts := self.find(query={}, filter_dict={"_id": 0}):
+            return list(posts)
 
     def find_post_by_id(self, post_id: str):
         if post := self.find_one(query={"post_id": post_id}):
             return post
 
     def create_post(self, data):
-        post = self.insert_one(data=data)
+        self.insert_one(data=data)
             
 
     def update_post(self, post_id: str, post):
-        if post := self.update_one(query={"_id": post_id}, data=post):
+        if post := self.update_one(query={"post_id": post_id}, data=post, upsert=False):
             return post
 
     def delete_post(self, post_id: str):
-        if post := self.delete_one(query={"_id": post_id}):
+        if post := self.delete_one(query={"post_id": post_id}):
             return post

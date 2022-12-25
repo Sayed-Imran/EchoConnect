@@ -1,7 +1,7 @@
 from typing import Optional, List
-from pydantic import BaseModel
+from pydantic import BaseModel, Extra
 
-class PostSchema(BaseModel):
-    caption: Optional[str]
-    description: Optional[str]
-    tags: Optional[List[str]]
+class PostSchema(BaseModel, extra=Extra.ignore):
+    caption: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[List[str]] = None

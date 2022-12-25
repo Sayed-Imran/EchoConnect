@@ -26,8 +26,7 @@ class CloudStorageUtil():
         try:
             bucket = self.storage_client.bucket(bucket_name)
             blob = bucket.blob(destination_blob_name)
-            print("Uploading file to bucket")
-            await blob.upload_from_filename(source_file_name)
+            blob.upload_from_filename(source_file_name)
             print(f"File {source_file_name} uploaded to {destination_blob_name}.")
             print(f"Public URL: {blob.public_url}")
             return blob.public_url
