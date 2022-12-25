@@ -1,5 +1,3 @@
-from typing import Optional
-from scripts.db.mongo.schema import MongoBaseSchema
 from scripts.constants import DatabasesNames, CollectionNames
 from scripts.utils.mongo_util import MongoCollectionBaseClass
 
