@@ -32,6 +32,7 @@ except Exception:
 class DBConf:
     class MongoDB:
         uri = config.get("MONGO_DB", "uri")
+        print(uri, "URI accepted")
         if not uri:
             print("Error, ENV variable Mongo URI not set")
             sys.exit(1)
