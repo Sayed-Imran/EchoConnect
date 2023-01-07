@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA
+        image: gcr.io/silver-approach-371713/dev-echo-connect-auth
         ports:
         - containerPort: 8080
         env:
