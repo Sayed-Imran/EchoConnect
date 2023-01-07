@@ -1,6 +1,6 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA', './auth/']
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA']
@@ -9,4 +9,4 @@ steps:
   args: ['tag', 'gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA', 'gcr.io/$PROJECT_ID/dev-echo-connect-auth:latest']
 
 - name: 'gcr.io/cloud-builders/gke-deploy'
-  args: ['run', '--filename=deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA', '--namespace=development', '--cluster=production server', '--location=asia-south1-a' ]
+  args: ['run', '--filename=./auth/deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA', '--namespace=development', '--cluster=production server', '--location=asia-south1-a' ]
