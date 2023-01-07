@@ -22,6 +22,7 @@ class MongoConnect:
 
         try:
             self.uri = uri
+            print(self.uri)
             self.client = MongoClient(self.uri, connect=False)
 
         except Exception as e:
