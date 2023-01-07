@@ -9,6 +9,7 @@ class LoginError(Exception):
 
     pass
 
+
 class MongoException(Exception):
     """Raised when a mongo operation fails."""
 

@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  labels:
+    app: auth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth
+        image: gcr.io/$PROJECT_ID/dev-echo-connect-auth:$SHORT_SHA
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: MONGO_URI
+        - name: BASE_PATH
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: BASE_PATH
+        - name: LOG_LEVEL
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: LOG_LEVEL
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: ENCRYPTION_KEY
+        - name: GOOGLE_ID
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: GOOGLE_ID
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth
+  labels:
+    app: auth
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: auth
