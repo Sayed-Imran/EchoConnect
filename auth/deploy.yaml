@@ -58,7 +58,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 4500
+    targetPort: 4500
   selector:
     app: auth
