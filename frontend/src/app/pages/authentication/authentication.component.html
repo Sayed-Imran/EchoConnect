@@ -1,0 +1,21 @@
+<section class="h-100" id="authentication-section">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 15px;" id="authentication-card">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="assets/images/login-bg.jpg" alt="login" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-white">
+                <router-outlet></router-outlet>
+                <script src="https://accounts.google.com/gsi/client" async defer></script> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
