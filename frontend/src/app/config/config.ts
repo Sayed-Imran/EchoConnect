@@ -1,4 +1,4 @@
-const domain = "http://echo.crazeops.tech";
+const domain = "echo.crazeops.tech";
 const host_domain = window.location.host;
 
 export class Config {
