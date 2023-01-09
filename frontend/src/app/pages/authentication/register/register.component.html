@@ -1,0 +1,28 @@
+<h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Welcome to <span class="font-weight-bold">Echo
+    Connect</span></h3>
+<form [formGroup]="registrationForm" (ngSubmit)="register()">
+  <mdb-form-control class="mb-4 form-white">
+    <input mdbInput type="text" id="form3cg" class="form-control form-control-lg" formControlName="first_name"/>
+    <label mdbLabel class="form-label" for="form3cg">First Name</label>
+  </mdb-form-control>
+  <mdb-form-control class="mb-4 form-white">
+    <input mdbInput type="text" id="form4cg" class="form-control form-control-lg" formControlName="last_name"/>
+    <label mdbLabel class="form-label" for="form3cg">Last Name</label>
+  </mdb-form-control>
+  <mdb-form-control class="mb-4 form-white">
+    <input mdbInput type="email" id="form5cg" class="form-control form-control-lg" formControlName="email"/>
+    <label mdbLabel class="form-label" for="form3cg">Email</label>
+  </mdb-form-control>
+  <mdb-form-control class="mb-4 form-white">
+    <input mdbInput type="password" id="form6cg" class="form-control form-control-lg" formControlName="password"/>
+    <label mdbLabel class="form-label" for="form4cg">Password</label>
+  </mdb-form-control>
+  <div class="pt-1 mb-4">
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+  </div>
+</form>
+<div class="text-center">
+  <p>Already a member? <a routerLink="/authenticate/login">Login</a></p>
+  <p>or sign in with:</p>
+  <asl-google-signin-button type='icon' size='large' class="mx-1 btn-floating btn" shape="circle"></asl-google-signin-button>
+</div>
