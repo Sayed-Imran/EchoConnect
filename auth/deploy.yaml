@@ -56,7 +56,7 @@ metadata:
   labels:
     app: auth
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
   - port: 4500
     targetPort: 4500
