@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: gcr.io/level-state-373806/dev-echo-connect-auth
+        image: gcr.io/level-slate-373806/dev-echo-connect-auth
         ports:
         - containerPort: 8080
         env:
