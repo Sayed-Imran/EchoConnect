@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: gcr.io/silver-approach-371713/dev-echo-connect-ui
+        image: gcr.io/level-state-373806/dev-echo-connect-ui
         ports:
         - containerPort: 80
 
