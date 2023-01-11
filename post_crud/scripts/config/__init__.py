@@ -41,3 +41,10 @@ class DBConf:
         if not cred:
             print("Error, ENV variable Google Cred not set")
             sys.exit(1)
+
+
+class AuthenticationConf:
+    encryption_key = config.get("AUTH", "encryption_key")
+    if not encryption_key:
+        print("Error, ENV variable encryption key not set")
+        sys.exit(1)

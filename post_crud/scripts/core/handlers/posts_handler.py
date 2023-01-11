@@ -29,13 +29,14 @@ class PostsHandler:
         except Exception as e:
             print(e.args)
 
-    async def create_post(self, file, post: dict):
+    async def create_post(self, file, post: dict, user_id:str):
         try:
             post['post_id'] = shortuuid.uuid()
+            post['user_id'] = user_id
             if file:
                 with open(file.filename, 'wb') as f:
                     f.write(await file.read())
-                file_url = await self.cloud_storage.upload_blob(bucket_name='crazeops-objects',
+                file_url = await self.cloud_storage.upload_blob(bucket_name='echo-connect-objects',
                                                                 source_file_name=file.filename, destination_blob_name=post['post_id']+'.'+file.filename.split('.')[-1])
                 os.remove(file.filename)
             post['object_url'] = file_url if file else None
@@ -64,7 +65,7 @@ class PostsHandler:
                 if post['object_url']:
                     file_name = post['object_url'].split('/')[-1]
                     self.cloud_storage.delete_blob(
-                        bucket_name="crazeops-objects", blob_name=file_name)
+                        bucket_name="echo-connect-objects", blob_name=file_name)
                 self.publisher.publish(data='delete_post', attributes=post)
                 if post := self.posts.delete_post(post_id=post_id):
                     return post
