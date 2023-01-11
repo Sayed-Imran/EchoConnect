@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Deployment
 metadata:
   name: post-crud
@@ -17,6 +17,10 @@ spec:
         image: gcr.io/level-slate-373806/dev-echo-connect-post_crud
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: creds
+          mountPath: "/"
+          subPath: credentials.json
         env:
         - name: MONGO_URI
           valueFrom:
@@ -29,10 +33,15 @@ spec:
               name: secret-envs
               key: ENCRYPTION_KEY
         - name: GOOGLE_APPLICATION_CREDENTIALS
-          valueFrom:
-            configMapKeyRef:
-              name: google-cloud-credentials
-              key: credentials.json
+          value: "/credentials.json"
+
+    volumes:
+    - name: creds
+      configMap:
+        name: google-cloud-credentials
+        items:
+        - key: credentials.json
+          path: credentials.json
 
 ---
 apiVersion: v1
