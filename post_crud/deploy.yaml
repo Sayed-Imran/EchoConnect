@@ -14,11 +14,7 @@ spec:
     spec:
       containers:
       - name: post-crud
-        image: gcr.io/level-slate-373806/post-crud
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: gcr.io/level-slate-373806/dev-echo-connect-post_crud
         ports:
         - containerPort: 8080
         env:
