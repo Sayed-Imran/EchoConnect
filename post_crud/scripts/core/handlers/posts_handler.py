@@ -13,7 +13,7 @@ class PostsHandler:
         self.posts = Posts(mongo_client=mongo_client)
         self.cloud_storage = CloudStorageUtil()
         self.publisher = Publisher(
-            topic_path='projects/silver-approach-371713/topics/post-events')
+            topic_path='projects/level-slate-373806/topics/post-crud-events')
 
     def get_all_posts(self):
         try:
