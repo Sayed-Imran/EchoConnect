@@ -28,7 +28,7 @@ spec:
             secretKeyRef:
               name: secret-envs
               key: ENCRYPTION_KEY
-        - name: CREDENTIALS
+        - name: GOOGLE_APPLICATION_CREDENTIALS
           valueFrom:
             configMapKeyRef:
               name: google-cloud-credentials
