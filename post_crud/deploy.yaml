@@ -21,19 +21,32 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 8080
-      env:
-      - name: MONGO_URI
-        valueFrom:
-          secretKeyRef:
-            name: secret-envs
-            key: MONGO_URI
-      - name: ENCRYPTION_KEY
-        valueFrom:
-          secretKeyRef:
-            name: secret-envs
-            key: ENCRYPTION_KEY
-      - name: CREDENTIALS
-        valueFrom:
-          configMapKeyRef:
-            name: google-cloud-credentials
-            key: credentials.json
+        env:
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: MONGO_URI
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: ENCRYPTION_KEY
+        - name: CREDENTIALS
+          valueFrom:
+            configMapKeyRef:
+              name: google-cloud-credentials
+              key: credentials.json
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-crud
+spec:
+  type: NodePort
+  selector:
+    app: post-crud
+  ports:
+  - port: 8080
+    targetPort: 8080
