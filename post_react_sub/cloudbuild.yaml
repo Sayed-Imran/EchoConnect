@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react-sub:$COMMIT_SHA', './post_react_sub/']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react-sub:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react-sub:latest']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react-sub:$COMMIT_SHA']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react-sub:latest']
+  
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args: ['run', '--filename=./post_crud/deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-post-react-sub:$SHORT_SHA', '--cluster=production-server', '--location=asia-south1-a', '--namespace=development']
