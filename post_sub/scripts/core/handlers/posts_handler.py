@@ -1,5 +1,4 @@
 import logging
-import os
 from datetime import datetime
 from scripts.db.mongo import mongo_client
 from scripts.db.mongo.posts.collections.post_like_details import Posts
@@ -26,9 +25,9 @@ class PostsHandler:
     def create_post(self, post_id: str):
         try:
             post = {"post_id": post_id, "liked_by": []}
-            print(post,type(post))
+            print(post, type(post))
             self.posts.create_post(data=post)
-            post.pop('_id', None)
+            post.pop("_id", None)
             return post
         except Exception as e:
             print(e.args)
@@ -36,7 +35,7 @@ class PostsHandler:
 
     def update_post(self, post_id: str, post):
         try:
-            post['updated_at'] = datetime.now()
+            post["updated_at"] = datetime.now()
             if post := self.posts.update_post(post_id=post_id, post=post):
                 return post
         except Exception as e:
