@@ -9,6 +9,7 @@ import os
 import os.path
 from configparser import ConfigParser, BasicInterpolation
 import shortuuid
+import json
 
 
 class EnvInterpolation(BasicInterpolation):
@@ -39,13 +40,14 @@ class DBConf:
 
     class GoogleCred:
         cred = config.get("GOOGLE_APPLICATION_CREDENTIALS", "GOOGLE_CRED")
-        print(type(cred))
+        cred = json.loads(cred)
         if not cred:
             print("Error, ENV variable Google Cred not set")
             sys.exit(1)
         cred_file = f'{shortuuid.uuid()}.json'
         cred_file_path = f'./{cred_file}'
         with open(cred_file_path, "w") as cred_write:
-            cred_write.write(cred)
+            cred_write.write(json.dumps(cred))
+        print(json.dumps(cred))
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cred_file_path
         
