@@ -20,7 +20,7 @@ spec:
             secretKeyRef:
               name: secret-envs
               key: MONGO_URI
-        - name: GOOGLE_APPLICATION_CREDENTIALS
+        - name: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
           valueFrom:
             secretKeyRef:
               name: secret-envs
