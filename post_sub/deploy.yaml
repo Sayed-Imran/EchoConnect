@@ -22,6 +22,6 @@ spec:
               key: MONGO_URI
         - name: GOOGLE_APPLICATION_CREDENTIALS
           valueFrom:
-            configMapKeyRef:
-              name: google-cloud-credentials
-              key: credentials.json
+            secretKeyRef:
+              name: secret-envs
+              key: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
