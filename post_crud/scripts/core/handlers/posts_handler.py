@@ -19,7 +19,7 @@ class PostsHandler:
         try:
             if posts := self.posts.find_all_posts():
                 return posts
-        except Exception as e:
+        except Exception as e:  
             print(e.args)
 
     def get_post_by_id(self, post_id: str):

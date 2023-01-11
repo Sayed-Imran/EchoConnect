@@ -5,4 +5,4 @@ if __name__ == "__main__":
 
     load_dotenv()
 
-    uvicorn.run("main:app", host="0.0.0.0", port=80, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)

@@ -28,7 +28,6 @@ class CloudStorageUtil():
             blob = bucket.blob(destination_blob_name)
             blob.upload_from_filename(source_file_name)
             print(f"File {source_file_name} uploaded to {destination_blob_name}.")
-            print(f"Public URL: {blob.public_url}")
             return blob.public_url
         except Exception as e: 
             print(e)

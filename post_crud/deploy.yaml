@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-crud
+spec:
+  selector:
+    matchLabels:
+      app: post-crud
+  template:
+    metadata:
+      labels:
+        app: post-crud
+    spec:
+      containers:
+      - name: post-crud
+        image: gcr.io/level-slate-373806/post-crud
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: secret-envs
+            mountPath: /etc/secret-volume
+            readOnly: true
+      env:
+      - name: MONGO_URI
+        valueFrom:
+          secretKeyRef:
+            name: secret-envs
+            key: MONGO_URL
+      - name: ENCRYPTION_KEY
+        valueFrom:
+          secretKeyRef:
+            name: secret-envs
+            key: ENCRYPTION_KEY
+      - name: CREDENTIALS
+        valueFrom:
+          configMapKeyRef:
+            name: google-cloud-credentials
+            key: credentials.json
