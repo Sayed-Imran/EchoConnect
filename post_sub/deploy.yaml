@@ -14,16 +14,16 @@ spec:
       containers:
       - name: post-crud-sub
         image: gcr.io/level-slate-373806/dev-echo-connect-post-crud-sub
-      
-      env:
-      - name: MONGO_URI
-        valuefrom:
-          secretKeyRef:
-            name: secret-envs
-            key: MONGO_URI
 
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        valueFrom:
-            configMapKeyRef:
-              name: google-cloud-credentials
-              key: credentials.json
+        env:
+        - name: MONGO_URI
+          valuefrom:
+            secretKeyRef:
+              name: secret-envs
+              key: MONGO_URI
+
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          valueFrom:
+              configMapKeyRef:
+                name: google-cloud-credentials
+                key: credentials.json
