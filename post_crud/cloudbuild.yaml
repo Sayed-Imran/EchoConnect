@@ -12,4 +12,4 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/dev-echo-connect-post_crud:latest']
   
   - name: 'gcr.io/cloud-builders/gke-deploy'
-    args: ['run', '--filename=./post_crud/deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-post_crud:$SHORT_SHA', '--cluster=production-server', '--location=asia-south1-a', '--namespace=development', '--wait', '--timeout=10m']
+    args: ['run', '--filename=./post_crud/deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-post_crud:$SHORT_SHA', '--cluster=production-server', '--location=asia-south1-a', '--namespace=development']

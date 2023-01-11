@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: post-crud
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: post-crud
@@ -20,16 +21,12 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 8080
-        volumeMounts:
-          - name: secret-envs
-            mountPath: /etc/secret-volume
-            readOnly: true
       env:
       - name: MONGO_URI
         valueFrom:
           secretKeyRef:
             name: secret-envs
-            key: MONGO_URL
+            key: MONGO_URI
       - name: ENCRYPTION_KEY
         valueFrom:
           secretKeyRef:
