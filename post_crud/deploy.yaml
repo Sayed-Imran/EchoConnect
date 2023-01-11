@@ -17,10 +17,7 @@ spec:
         image: gcr.io/level-slate-373806/dev-echo-connect-post_crud
         ports:
         - containerPort: 8080
-        volumeMounts:
-        - name: creds
-          mountPath: "/"
-          subPath: credentials.json
+
         env:
         - name: MONGO_URI
           valueFrom:
@@ -32,16 +29,11 @@ spec:
             secretKeyRef:
               name: secret-envs
               key: ENCRYPTION_KEY
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: "/credentials.json"
-
-    volumes:
-    - name: creds
-      configMap:
-        name: google-cloud-credentials
-        items:
-        - key: credentials.json
-          path: credentials.json
+        - name: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
 
 ---
 apiVersion: v1
