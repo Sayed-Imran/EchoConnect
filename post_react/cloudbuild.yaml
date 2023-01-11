@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react:$COMMIT_SHA', './post_react/']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react:$COMMIT_SHA', './post_react/.']
   
   - name: 'gcr.io/cloud-builders/docker'
     args: ['tag', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react:latest']
@@ -12,4 +12,4 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/dev-echo-connect-post-react:latest']
   
   - name: 'gcr.io/cloud-builders/gke-deploy'
-    args: ['run', '--filename=./post_react/deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-post-react:$SHORT_SHA', '--cluster=production-server', '--location=asia-south1-a', '--namespace=development']
+    args: ['run', '--filename=./post_react/deploy.yaml', '--image=gcr.io/$PROJECT_ID/dev-echo-connect-post-react:$COMMIT_SHA', '--cluster=production-server', '--location=asia-south1-a', '--namespace=development']
