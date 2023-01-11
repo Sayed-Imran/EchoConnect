@@ -39,6 +39,7 @@ class DBConf:
 
     class GoogleCred:
         cred = config.get("GOOGLE_APPLICATION_CREDENTIALS", "GOOGLE_CRED")
+        print(cred)
         if not cred:
             print("Error, ENV variable Google Cred not set")
             sys.exit(1)
