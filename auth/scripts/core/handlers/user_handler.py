@@ -40,6 +40,7 @@ class UserHandler:
             register_user.user_id = shortuuid.uuid()
             register_user.password = hash_password(register_user.password)
             register_user = register_user.dict()
+            register_user['user_name'] = register_user['first_name'] + '_' + register_user['last_name']
             register_user['profile-image'] = 'https://storage.googleapis.com/echo-connect-objects/default-avatar.jpeg'
             self.user_conn.insert_user(register_user)
         except RegistrationError as re:
