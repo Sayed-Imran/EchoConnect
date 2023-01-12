@@ -13,7 +13,8 @@ class RegisterSchema(BaseModel):
 class LoginSchema(BaseModel):
     email: str
     password: str
-    
+
+
 class GoogleLoginSchema(BaseModel):
     id_token: str
 

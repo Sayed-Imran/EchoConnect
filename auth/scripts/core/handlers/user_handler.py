@@ -74,19 +74,21 @@ class UserHandler:
         except Exception as e:
             logger.exception(e.__traceback__)
             raise LoginError("Unable to login user") from e
-        
+
     def register_login_google_user(self, token: str):
         """
         The register_login_google_user function is used to register a user using Google OAuth.
         It takes in the token as an argument and returns a JWT token for the user.
-        
+
         :param self: Access the class attributes
         :param token: str: Pass the token that is retrieved from the google login page
         :return: A jwt token
         :doc-author: Trelent
         """
         try:
-            id_info = id_token.verify_oauth2_token(token, requests.Request(), AuthenticationConf.google_id)
+            id_info = id_token.verify_oauth2_token(
+                token, requests.Request(), AuthenticationConf.google_id
+            )
             user = self.user_conn.get_user(id_info["email"])
             if not user:
                 user = RegisterSchema(

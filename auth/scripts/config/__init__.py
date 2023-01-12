@@ -32,6 +32,7 @@ except Exception:
 class DBConf:
     class MongoDB:
         uri = config.get("MONGO_DB", "uri")
+        print(uri, "URI accepted")
         if not uri:
             print("Error, ENV variable Mongo URI not set")
             sys.exit(1)
@@ -50,7 +51,7 @@ class AuthenticationConf:
     if not encryption_key:
         print("Error, ENV variable encryption key not set")
         sys.exit(1)
-        
+
     google_id = config.get("AUTH", "google_id")
     if not google_id:
         print("Error, ENV variable google id not set")

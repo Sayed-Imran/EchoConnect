@@ -2,7 +2,12 @@ from fastapi import HTTPException, status
 from fastapi.routing import APIRouter
 from scripts.constants import APIConstants
 from scripts.errors import RegistrationError, LoginError
-from scripts.schemas import RegisterSchema, LoginSchema, DefaultResponseSchema, GoogleLoginSchema
+from scripts.schemas import (
+    RegisterSchema,
+    LoginSchema,
+    DefaultResponseSchema,
+    GoogleLoginSchema,
+)
 from scripts.core.handlers.user_handler import UserHandler
 
 router = APIRouter(prefix=APIConstants.api_authenticate_base)
@@ -38,6 +43,7 @@ def login_user(login_data: LoginSchema):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal Server Error",
         )
+
 
 @router.post(APIConstants.api_google_login_user)
 def google_login_user(login_data: GoogleLoginSchema):

@@ -1,0 +1,7 @@
+__pycache__/
+.vscode/
+.vscode-test/
+.env
+credentials.json
+cloudbuild.yaml
+deploy.yaml
