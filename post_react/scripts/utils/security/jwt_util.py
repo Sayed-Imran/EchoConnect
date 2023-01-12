@@ -3,7 +3,7 @@ from typing import Dict
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from scripts.constants.secrets import Secrets
-from fastapi import Depends, status, HTTPException
+from fastapi import Depends, status, HTTPException, Header
 from fastapi.security.oauth2 import OAuth2PasswordBearer
 
 
@@ -28,10 +28,13 @@ class JWT:
         except JWTError as e:
             raise credential_exception from e
 
-    def get_current_user(self, token: str = Depends(oauth2_scheme)):
+    def get_current_user(self, Authorization: str = Header(default=None)):
         credential_exception = HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could Not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
+        if not Authorization:
+            raise credential_exception
+        token = Authorization.split(" ")[1]
         return self.verify_token(token, credential_exception=credential_exception)
