@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: post-crud
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: post-crud
@@ -47,3 +47,4 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+    nodePort: 31000
