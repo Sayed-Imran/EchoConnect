@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from scripts.services.like_service import like_router
 
 app = FastAPI()
-origins = ['*']
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

@@ -5,8 +5,8 @@ from scripts.utils.mongo_util import MongoCollectionBaseClass
 class Posts(MongoCollectionBaseClass):
     def __init__(self, mongo_client):
         """
-        The __init__ function is called when an instance of the class is created. 
-        The __init__ function receives a reference to the instance as its first argument, 
+        The __init__ function is called when an instance of the class is created.
+        The __init__ function receives a reference to the instance as its first argument,
         which by convention we call self.
 
         :param self: Refer to the object of the class that is being created
@@ -34,9 +34,10 @@ class Posts(MongoCollectionBaseClass):
 
     def like_post(self, post_id: str, user_id: str):
         return self.update_push_array(
-            query={'post_id': post_id}, data=user_id, array_key='liked_by')
-        
+            query={"post_id": post_id}, data=user_id, array_key="liked_by"
+        )
 
     def disklike_post(self, post_id: str, user_id: str):
         return self.update_pull_array(
-            query={'post_id': post_id}, data=user_id, array_key='liked_by')
+            query={"post_id": post_id}, data=user_id, array_key="liked_by"
+        )
