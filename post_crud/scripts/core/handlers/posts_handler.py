@@ -59,9 +59,11 @@ class PostsHandler:
         except Exception as e:
             print(e.args)
 
-    def delete_post(self, post_id: str):
+    def delete_post(self, post_id: str, user_id:str):
         try:
             if post := self.posts.find_post_by_id(post_id=post_id):
+                if post['user_id'] != user_id:
+                    raise Exception('Unauthorized')
                 if post['object_url']:
                     file_name = post['object_url'].split('/')[-1]
                     self.cloud_storage.delete_blob(

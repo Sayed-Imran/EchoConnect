@@ -60,11 +60,11 @@ def update_post(post_id: str, post: PostSchema, user_data=Depends(JWT().get_curr
                             detail=e.args) from e
 
 
-@posts_router.delete(APIEndpoints.delete_post+"/{post_id}", status_code=status.HTTP_204_NO_CONTENT)
+@posts_router.post(APIEndpoints.delete_post+"/{post_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(post_id: str, user_data=Depends(JWT().get_current_user)):
     try:
         posts_handler = PostsHandler()
-        return posts_handler.delete_post(post_id=post_id)
+        return posts_handler.delete_post(post_id=post_id, user_id=user_data['user_id'])
     except Exception as e:
         print(e.args)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
