@@ -1,16 +1,17 @@
 import shortuuid
 import logging
 import os
-from datetime import datetime
 from scripts.db.mongo import mongo_client
 from scripts.utils.cloud_storage_util import CloudStorageUtil
 from scripts.db.mongo.posts.collections.post_details import Posts
+from scripts.db.mongo.connect_base.collections.user import User
 from scripts.utils.publisher_util import Publisher
-
+import pendulum
 
 class PostsHandler:
     def __init__(self):
         self.posts = Posts(mongo_client=mongo_client)
+        self.user = User(mongo_client=mongo_client)
         self.cloud_storage = CloudStorageUtil()
         self.publisher = Publisher(
             topic_path='projects/level-slate-373806/topics/post-crud-events')
@@ -33,15 +34,17 @@ class PostsHandler:
         try:
             post['post_id'] = shortuuid.uuid()
             post['user_id'] = user_id
+            user = self.user.get_user(user_id=user_id)
+            post['user_name'] = user['user_name']
+            post['user_profile'] = user['profile-image']
             if file:
                 with open(file.filename, 'wb') as f:
                     f.write(await file.read())
-                file_url = await self.cloud_storage.upload_blob(bucket_name='echo-connect-objects',
-                                                                source_file_name=file.filename, destination_blob_name=post['post_id']+'.'+file.filename.split('.')[-1])
+                file_url = await self.cloud_storage.upload_blob(bucket_name='echo-connect-objects',source_file_name=file.filename, destination_blob_name=post['post_id']+'.'+file.filename.split('.')[-1])
                 os.remove(file.filename)
             post['object_url'] = file_url if file else None
-            post['created_at'] = datetime.now()
-            post['updated_at'] = datetime.now()
+            post['created_at'] = pendulum.now().strftime("%d/%m/%Y")
+            post['updated_at'] = pendulum.now().strftime("%d/%m/%Y")
             post['likes'] = 0
             self.posts.create_post(data=post)
             post.pop('_id', None)
@@ -53,7 +56,7 @@ class PostsHandler:
 
     def update_post(self, post_id: str, post):
         try:
-            post['updated_at'] = datetime.now()
+            post['updated_at'] = pendulum.now().strftime("%d/%m/%Y")
             if post := self.posts.update_post(post_id=post_id, post=post):
                 return post
         except Exception as e:
