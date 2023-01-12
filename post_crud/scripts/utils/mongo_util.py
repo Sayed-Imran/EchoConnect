@@ -1,11 +1,11 @@
+import logging
 from typing import Dict, Optional
 from pymongo.cursor import Cursor
 from pymongo import MongoClient
 from scripts.errors import MongoException
-from scripts.logging import logger
 
 UPDATE_EXCEPTION_MSG = "Unable to update data"
-
+logger = logging.getLogger(__name__)
 
 class MongoConnect:
     def __init__(self, uri):
