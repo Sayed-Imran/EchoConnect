@@ -39,7 +39,9 @@ class UserHandler:
                 raise RegistrationError("User already exists")
             register_user.user_id = shortuuid.uuid()
             register_user.password = hash_password(register_user.password)
-            self.user_conn.insert_user(register_user.dict())
+            register_user = register_user.dict()
+            register_user['profile-image'] = 'https://storage.googleapis.com/echo-connect-objects/default-avatar.jpeg'
+            self.user_conn.insert_user(register_user)
         except RegistrationError as re:
             logger.exception(re.args)
             raise re
