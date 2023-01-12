@@ -8,7 +8,7 @@ import sys
 import os
 import os.path
 from configparser import ConfigParser, BasicInterpolation
-import json,shortuuid
+
 
 class EnvInterpolation(BasicInterpolation):
     def before_get(self, parser, section, option, value, defaults):
@@ -38,13 +38,13 @@ class DBConf:
 
     class GoogleCred:
         cred = config.get("GOOGLE_APPLICATION_CREDENTIALS", "GOOGLE_CRED")
-        cred = json.loads(cred)
-        cred['private_key'] = cred['private_key'].replace('\\n', '\n')
         if not cred:
             print("Error, ENV variable Google Cred not set")
             sys.exit(1)
-        cred_file = f'{shortuuid.uuid()}.json'
-        cred_file_path = f'./{cred_file}'
-        with open(cred_file_path, "w") as cred_write:
-            cred_write.write(json.dumps(cred))
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cred_file_path
+
+
+class AuthenticationConf:
+    encryption_key = config.get("AUTH", "encryption_key")
+    if not encryption_key:
+        print("Error, ENV variable encryption key not set")
+        sys.exit(1)

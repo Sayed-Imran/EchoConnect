@@ -3,6 +3,7 @@ class MongoException(Exception):
 
     pass
 
+
 class UserException(Exception):
     """No Data passed by the user."""
 

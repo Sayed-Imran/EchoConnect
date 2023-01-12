@@ -1,10 +1,11 @@
+import logging
 from typing import Dict, Optional
 from pymongo.cursor import Cursor
 from pymongo import MongoClient
 from scripts.errors import MongoException
 
 UPDATE_EXCEPTION_MSG = "Unable to update data"
-
+logger = logging.getLogger(__name__)
 
 class MongoConnect:
     def __init__(self, uri):
@@ -78,6 +79,7 @@ class MongoCollectionBaseClass:
             response = collection.insert_one(data)
 
         except Exception as e:
+            logger.exception(e.args)
             raise MongoException("Unable to insert data") from e
 
     def find(

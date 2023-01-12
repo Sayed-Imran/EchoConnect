@@ -13,13 +13,13 @@ class PostsHandler:
         self.posts = Posts(mongo_client=mongo_client)
         self.cloud_storage = CloudStorageUtil()
         self.publisher = Publisher(
-            topic_path='projects/silver-approach-371713/topics/post-events')
+            topic_path='projects/level-slate-373806/topics/post-crud-events')
 
     def get_all_posts(self):
         try:
             if posts := self.posts.find_all_posts():
                 return posts
-        except Exception as e:
+        except Exception as e:  
             print(e.args)
 
     def get_post_by_id(self, post_id: str):
@@ -29,13 +29,14 @@ class PostsHandler:
         except Exception as e:
             print(e.args)
 
-    async def create_post(self, file, post: dict):
+    async def create_post(self, file, post: dict, user_id:str):
         try:
             post['post_id'] = shortuuid.uuid()
+            post['user_id'] = user_id
             if file:
                 with open(file.filename, 'wb') as f:
                     f.write(await file.read())
-                file_url = await self.cloud_storage.upload_blob(bucket_name='crazeops-objects',
+                file_url = await self.cloud_storage.upload_blob(bucket_name='echo-connect-objects',
                                                                 source_file_name=file.filename, destination_blob_name=post['post_id']+'.'+file.filename.split('.')[-1])
                 os.remove(file.filename)
             post['object_url'] = file_url if file else None
@@ -48,7 +49,7 @@ class PostsHandler:
             return post
         except Exception as e:
             print(e.args)
-            logging.error(e.with_traceback())
+            logging.error(e.with_traceback(None))
 
     def update_post(self, post_id: str, post):
         try:
@@ -58,13 +59,15 @@ class PostsHandler:
         except Exception as e:
             print(e.args)
 
-    def delete_post(self, post_id: str):
+    def delete_post(self, post_id: str, user_id:str):
         try:
             if post := self.posts.find_post_by_id(post_id=post_id):
+                if post['user_id'] != user_id:
+                    raise Exception('Unauthorized')
                 if post['object_url']:
                     file_name = post['object_url'].split('/')[-1]
                     self.cloud_storage.delete_blob(
-                        bucket_name="crazeops-objects", blob_name=file_name)
+                        bucket_name="echo-connect-objects", blob_name=file_name)
                 self.publisher.publish(data='delete_post', attributes=post)
                 if post := self.posts.delete_post(post_id=post_id):
                     return post
