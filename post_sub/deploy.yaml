@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-crud-sub
+spec:
+  selector:
+    matchLabels:
+      app: post-crud-sub
+  template:
+    metadata:
+      labels:
+        app: post-crud-sub
+    spec:
+      containers:
+      - name: post-crud-sub
+        image: gcr.io/level-slate-373806/dev-echo-connect-post-crud-sub
+        env:
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: MONGO_URI
+        - name: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
