@@ -49,7 +49,7 @@ class PostsHandler:
             return post
         except Exception as e:
             print(e.args)
-            logging.error(e.with_traceback())
+            logging.error(e.with_traceback(None))
 
     def update_post(self, post_id: str, post):
         try:
