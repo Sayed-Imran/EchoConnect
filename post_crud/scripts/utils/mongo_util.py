@@ -2,6 +2,7 @@ from typing import Dict, Optional
 from pymongo.cursor import Cursor
 from pymongo import MongoClient
 from scripts.errors import MongoException
+from scripts.logging import logger
 
 UPDATE_EXCEPTION_MSG = "Unable to update data"
 
@@ -78,6 +79,7 @@ class MongoCollectionBaseClass:
             response = collection.insert_one(data)
 
         except Exception as e:
+            logger.exception(e.args)
             raise MongoException("Unable to insert data") from e
 
     def find(
