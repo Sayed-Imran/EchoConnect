@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CommonUtils } from 'src/app/utils/common-utils';
 import { SocialAuthService, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login/entities/social-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
     password: new FormControl(''),
   });
 
-  constructor(private echoToasterService: EchoToasterService, private authenticationService: AuthenticationService, private socialAuthService: SocialAuthService) {
+  constructor(private routeService: Router, private echoToasterService: EchoToasterService, private authenticationService: AuthenticationService, private socialAuthService: SocialAuthService) {
 
   }
 
@@ -38,11 +39,26 @@ export class LoginComponent {
   }
 
   login() {
-    this.authenticationService.login(this.loginForm.value).subscribe((response: DefaultResponse) => {
-      this.echoToasterService.show(response);
-      if(response.data?.token)
-        CommonUtils.setAuthToken(response.data.token);
-    });
+    try {
+      this.routeTo('/home/dashboard');
+      // this.authenticationService.login(this.loginForm.value).subscribe((response: DefaultResponse) => {
+      //   this.echoToasterService.show(response);
+      //   if(response.data?.token){
+      //     CommonUtils.setAuthToken(response.data.token);
+      //   } else {
+      //     this.echoToasterService.show(response || new DefaultResponse("failed", "Login Failed!"));
+      //   }
+      // });
+    } catch(loginErr) {
+      console.error(loginErr);
+    }
   }
 
+  routeTo(route: any) {
+    try{
+      this.routeService.navigate([route])
+    } catch(routrErr){
+      console.error(routrErr);
+    }
+  }
 }

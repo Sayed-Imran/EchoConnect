@@ -13,3 +13,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import 'mdb-angular-ui-kit/assets/scss/mdb.scss';
 
 /* Importing Bootstrap SCSS file. */
+
+
+
+.float-right {
+    float: right;
+}
+.float-left {
+    float: left;
+}

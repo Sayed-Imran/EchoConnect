@@ -1,0 +1,14 @@
+.dashboard {
+    background-color: aqua;
+    background-image: 'assets/images/login-bg-b.jpg';
+}
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0 !important;
+    margin: 0px;
+    transform: translate3d(0px, 44px, 0px);
+}

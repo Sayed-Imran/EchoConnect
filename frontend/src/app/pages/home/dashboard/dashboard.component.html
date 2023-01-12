@@ -1,0 +1,61 @@
+
+<div class="col-md-12 row m-0">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid p-0">
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation" (click)="openSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="nav-link dropdown-toggle text-white" (click)="openDropdown = !openDropdown"> <i class="fas fa-user mx-1"></i> Profile </a>
+                
+        </div>
+    </nav>
+    <ul class="dropdown-menu dropdown-menu-end col-md-1" *ngIf="openDropdown">
+        <li>
+            <a class="dropdown-item" href="#">My account</a>
+        </li>
+
+        <li>
+            <a class="dropdown-item" href="#">Log out</a>
+        </li>
+    </ul>
+    <div *ngIf="enableSidebar" class="col-md-3">
+        <div class="card-body text-center">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 220px;">
+            <h2 class="my-3">John Smith</h2>
+            <p class="text-muted mb-1">Full Stack Developer</p>
+            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">UPLOAD</button>
+            </div>
+        </div>
+
+    </div>
+    <div [ngClass]="enableSidebar ? 'col-md-9' : 'col-md-12'" class=" d-flex" style="height: 100%; background-color: aqua; text-align: center; justify-content: center;">
+        <div class="row">
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+            <div class="col-md-4">
+                <app-postbox></app-postbox>
+            </div>
+        </div>
+    </div>
+</div>
