@@ -13,9 +13,9 @@ spec:
     spec:
       containers:
       - name: ui
-        image: gcr.io/silver-approach-371713/dev-echo-connect-ui
+        image: gcr.io/level-slate-373806/dev-echo-connect-ui
         ports:
-        - containerPort: 80
+        - containerPort: 4200
 
 ---
 
@@ -24,9 +24,9 @@ kind: Service
 metadata:
   name: ui
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: ui
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 4200
+    targetPort: 4200
