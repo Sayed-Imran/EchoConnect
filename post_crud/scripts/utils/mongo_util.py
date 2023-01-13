@@ -7,20 +7,21 @@ from scripts.errors import MongoException
 UPDATE_EXCEPTION_MSG = "Unable to update data"
 logger = logging.getLogger(__name__)
 
+
 class MongoConnect:
     def __init__(self, uri):
         """
-        The __init__ function is called when an instance of the class is created. 
-        The __init__ function can take arguments, but self is always the first one. 
-        Self is just a reference to the instance of the class. It’s automatically 
+        The __init__ function is called when an instance of the class is created.
+        The __init__ function can take arguments, but self is always the first one.
+        Self is just a reference to the instance of the class. It’s automatically
         passed in when you instantiate an instance of the class.
-        
+
         :param self: Refer to the object instance
         :param uri: Specify the connection string to connect to the mongo database
         :return: Nothing
         :doc-author: Sayed Imran
         """
-        
+
         try:
             self.uri = uri
             self.client = MongoClient(self.uri, connect=False)
@@ -30,10 +31,10 @@ class MongoConnect:
 
     def __call__(self, *args, **kwds):
         """
-        The __call__ function is a special method that allows an object to be called just like a function. 
-        The __call__ method can reference variables local to the object, because it is executed in the context of that object. 
+        The __call__ function is a special method that allows an object to be called just like a function.
+        The __call__ method can reference variables local to the object, because it is executed in the context of that object.
         It’s kind of like how methods within a class have access to all the attributes and methods of that class.
-        
+
         :param self: Access variables that belongs to the class
         :param *args: Pass a non-keyworded, variable-length argument list
         :param **kwds: Pass keyword arguments to the __call__ function
@@ -46,10 +47,10 @@ class MongoConnect:
 class MongoCollectionBaseClass:
     def __init__(self, mongo_client, database, collection):
         """
-        The __init__ function is called when an instance of the class is created. 
+        The __init__ function is called when an instance of the class is created.
         It initializes the attributes of the class, and sets up a connection to MongoDB.
-        
-        
+
+
         :param self: Refer to the object itself
         :param mongo_client: Connect to the mongodb server
         :param database: Specify the database name
@@ -65,7 +66,7 @@ class MongoCollectionBaseClass:
         """
         The insert_one function inserts a single document into the specified collection.
         It returns the inserted_id of the new document.
-        
+
         :param self: Reference the class instance
         :param data: dict: Pass the data that is to be inserted into the database
         :return: The _id of the inserted document
@@ -91,10 +92,10 @@ class MongoCollectionBaseClass:
         limit: Optional[int] = None,
     ) -> Cursor:
         """
-        The find function returns a cursor to the data in the database. 
-        The query is a dictionary that contains the filter for documents and other options. 
+        The find function returns a cursor to the data in the database.
+        The query is a dictionary that contains the filter for documents and other options.
         The filter_dict is an optional argument that can be used to specify what fields are returned in each document. The sort argument allows you to sort by one or more fields, with direction specified as well.
-        
+
         :param self: Refer to the class instance
         :param query: Dict: Specify the query to be executed
         :param filter_dict: Optional[Dict]: Filter out unwanted data
@@ -199,3 +200,24 @@ class MongoCollectionBaseClass:
         except Exception as e:
             print(e.args)
             raise MongoException(UPDATE_EXCEPTION_MSG) from e
+        
+    def get_by_aggregation(self, pipelines: list):
+        """
+        The get_by_aggregation function accepts a list of aggregation pipelines and returns the results of those pipelines.
+        The get_by_aggregation function is used to retrieve data from MongoDB using aggregation.
+        
+        
+        :param self: Refer to the class instance
+        :param pipelines: list: Define the aggregation pipeline
+        :return: A list of documents that match the aggregation pipeline
+        :doc-author: Sayed Imran
+        """
+        try:
+            database_name = self.database
+            collection_name = self.collection
+            db = self.client[database_name]
+            collection = db[collection_name]
+            return collection.aggregate(pipelines)
+        except Exception as e:
+            raise MongoException("Unable to find data") from e
+            

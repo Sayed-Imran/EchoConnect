@@ -1,19 +1,21 @@
 from google.cloud import storage
 
 
-class CloudStorageUtil():
+class CloudStorageUtil:
     def __init__(self):
         """
-        The __init__ function is called the constructor and is automatically invoked when an object of a class is created. 
+        The __init__ function is called the constructor and is automatically invoked when an object of a class is created.
         The __init__ function can be thought of as a parameterized constructor that takes arguments and creates instance variables.
-        
+
         :param self: Reference the object itself
         :return: The object that was created
         :doc-author: Sayed Imran
         """
         self.storage_client = storage.Client()
 
-    async def upload_blob(self, bucket_name, source_file_name, destination_blob_name) -> str:
+    async def upload_blob(
+        self, bucket_name, source_file_name, destination_blob_name
+    ) -> str:
         """
         The upload_blob function uploads a file to the bucket.
         :param self: Access variables that belongs to the class
@@ -29,9 +31,8 @@ class CloudStorageUtil():
             blob.upload_from_filename(source_file_name)
             print(f"File {source_file_name} uploaded to {destination_blob_name}.")
             return blob.public_url
-        except Exception as e: 
+        except Exception as e:
             print(e)
-
 
     def delete_blob(self, bucket_name, blob_name):
         """
@@ -48,5 +49,5 @@ class CloudStorageUtil():
             blob = bucket.blob(blob_name)
             blob.delete()
             print(f"Blob {blob_name} deleted.")
-        except Exception as e: 
+        except Exception as e:
             print(e)
