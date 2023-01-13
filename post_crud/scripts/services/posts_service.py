@@ -14,7 +14,7 @@ posts_router = APIRouter(prefix=APIEndpoints.api)
 def get_all_posts(user_data=Depends(JWT().get_current_user)):
     try:
         posts_handler = PostsHandler()
-        return posts_handler.get_all_posts(user_data.user_id)
+        return posts_handler.get_all_posts(user_data.get('user_id', ''))
     except Exception as e:
         print(e.args)
         raise HTTPException(

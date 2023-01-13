@@ -40,5 +40,5 @@ class Posts(MongoCollectionBaseClass):
             return post
         
     def fetch_by_aggregate(self, pipelines: list):
-        if posts := self.aggregate(pipelines=pipelines):
+        if posts := self.get_by_aggregation(pipelines=pipelines):
             return list(posts)
