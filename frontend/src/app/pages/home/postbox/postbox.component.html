@@ -1,41 +1,38 @@
 <div class="container">
-    <section class="mx-auto my-5" style="max-width: 23rem;">
-        <div class="card">
-            <div class="card-body d-flex flex-row">
-                <div class="col">
-                    <div class="row">
-                        <div class="col-md-4 ">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
-                                class="rounded-circle float-left p-0 m-0 me-3" height="50px" width="50px" alt="avatar" />
-                        </div>
-                        <div class="col cardDet">
-                            <h3 class="card-title font-weight-bold mb-2 cardData">{{cardData?.name || "Ashu"}}</h3>
-                            <p class="card-text"><i class="far fa-clock pe-2"></i>07/24/2018</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <i class="fa fa-times float-right" aria-hidden="true"></i>
-                </div>
+  <section class="mx-auto my-5" style="max-width: 23rem;">
+    <div class="card text-light">
+      <div class="card-body d-flex flex-row">
+        <div class="col">
+          <div class="row">
+            <div class="col-md-4 ">
+              <img [src]="post?.user_profile || 'User'"
+                class="rounded-circle float-left p-0 m-0 me-3" height="50px" width="50px" alt="avatar" />
             </div>
-            <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
-                <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
-                    alt="Card image cap" />
-                <a href="#!">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
+            <div class="col cardDet">
+              <h3 class="card-title font-weight-bold mb-2 cardData">{{post?.user_name || "Ashu"}}</h3>
+              <p class="card-text"><i class="far fa-clock pe-2"></i>{{post?.updated_at || "02/01/2023"}}</p>
             </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <i class="fas fa-share-alt text-muted p-md-1 my-1 me-2" data-mdb-toggle="tooltip"
-                            data-mdb-placement="top" title="Share this post"></i>
-                        <i class="fas fa-heart text-muted p-md-1 my-1 me-0" data-mdb-toggle="tooltip"
-                            data-mdb-placement="top" title="I like it"></i>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="col">
+          <i class="fa fa-times float-right" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
+        <img class="img-fluid" [src]="post.object_url" alt="Card image cap" />
+        <a href="#!">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <i class="fas fa-heart text-muted p-md-1 my-1 me-0" data-mdb-toggle="tooltip" data-mdb-placement="top"
+              title="I like it"></i>{{post?.likes}}
+          </div>
+        </div>
+      </div>
+    </div>
 
-    </section>
+  </section>
 </div>

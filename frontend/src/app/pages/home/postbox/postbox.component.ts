@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-postbox',
@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
 })
 export class PostboxComponent {
 
-  public cardData: any={};
+  public cardData: any = {};
+  @Input() public post: any = {};
+  
+  ngOnInit() {
+    console.log("Post data", this.post);
+  }
 
 }

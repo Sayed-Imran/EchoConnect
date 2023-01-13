@@ -40,15 +40,15 @@ export class LoginComponent {
 
   login() {
     try {
-      this.routeTo('/home/dashboard');
-      // this.authenticationService.login(this.loginForm.value).subscribe((response: DefaultResponse) => {
-      //   this.echoToasterService.show(response);
-      //   if(response.data?.token){
-      //     CommonUtils.setAuthToken(response.data.token);
-      //   } else {
-      //     this.echoToasterService.show(response || new DefaultResponse("failed", "Login Failed!"));
-      //   }
-      // });
+      this.authenticationService.login(this.loginForm.value).subscribe((response: DefaultResponse) => {
+        this.echoToasterService.show(response);
+        if(response.data?.token){
+          CommonUtils.setAuthToken(response.data.token);
+          this.routeTo('/home/dashboard');
+        } else {
+          this.echoToasterService.show(response || new DefaultResponse("failed", "Login Failed!"));
+        }
+      });
     } catch(loginErr) {
       console.error(loginErr);
     }

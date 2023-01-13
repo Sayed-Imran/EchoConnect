@@ -1,5 +1,4 @@
-
-<div class="col-md-12 row m-0">
+<div class="col-md-12 row m-0" id="dashboard" style="height: 100vh;">
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid p-0">
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
@@ -7,8 +6,9 @@
                 aria-expanded="false" aria-label="Toggle navigation" (click)="openSidebar()">
                 <i class="fas fa-bars"></i>
             </button>
-            <a class="nav-link dropdown-toggle text-white" (click)="openDropdown = !openDropdown"> <i class="fas fa-user mx-1"></i> Profile </a>
-                
+            <a class="nav-link dropdown-toggle text-white" (click)="openDropdown = !openDropdown"> <i
+                    class="fas fa-user mx-1"></i> Profile </a>
+
         </div>
     </nav>
     <ul class="dropdown-menu dropdown-menu-end col-md-1" *ngIf="openDropdown">
@@ -20,42 +20,45 @@
             <a class="dropdown-item" href="#">Log out</a>
         </li>
     </ul>
-    <div *ngIf="enableSidebar" class="col-md-3">
+    <div *ngIf="enableSidebar" class="col-md-3 bg-dark text-light">
         <div class="card-body text-center">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+            <img src="https://storage.googleapis.com/echo-connect-objects/coHEX6fEmBbvpGyeCyivDm.png" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 220px;">
-            <h2 class="my-3">John Smith</h2>
-            <p class="text-muted mb-1">Full Stack Developer</p>
-            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            <h2 class="my-3">Sayed Imran</h2>
+            <p class="text-muted mb-1">DevOps Engineer</p>
+            <p class="text-muted mb-4">Berhampur, Odisha, India</p>
             <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary">UPLOAD</button>
+                <button type="button" class="btn btn-primary" (click)="open(content)">UPLOAD</button>
             </div>
         </div>
-
     </div>
-    <div [ngClass]="enableSidebar ? 'col-md-9' : 'col-md-12'" class=" d-flex" style="height: 100%; background-color: aqua; text-align: center; justify-content: center;">
+
+
+    <!-- Modal -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Upload Post</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <input type="file" class="d-none" accept="'.png', '.jpg', '.jpeg', '.jfif', '.gif', '.PNG', '.JPG', '.JPEG', '.GIF', '.JFIF'" name="file" #fileInput
+                (click)="fileInput.value = ''" id="fileBlock" (change)="uploadBlockCsv($event)">
+            <button class="btn btn-primary" (click)="toggleDOMELM('fileBlock')">
+                <span>&nbsp;{{(selectedFile) ? 'Re-Upload' :
+                    'Upload'}}</span></button>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        </div>
+    </ng-template>
+    <div [ngClass]="enableSidebar ? 'col-md-9' : 'col-md-12'"
+        style="height: 100%; text-align: center; justify-content: center;" id="dashboard">
         <div class="row">
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
+            <div class="col-md-4" *ngFor="let post of getAllPosts">
+                <app-postbox [post]="post"></app-postbox>
             </div>
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
-            </div>
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
-            </div>
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
-            </div>
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
-            </div>
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
-            </div>
-            <div class="col-md-4">
-                <app-postbox></app-postbox>
-            </div>
+
         </div>
     </div>
 </div>

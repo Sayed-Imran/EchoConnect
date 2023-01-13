@@ -1,14 +1,23 @@
-.dashboard {
-    background-color: aqua;
-    background-image: 'assets/images/login-bg-b.jpg';
+#dashboard {
+  background-image: url('/assets/images/login-bg-b.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .dropdown-toggle {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .dropdown-menu {
-    position: absolute;
-    right: 0 !important;
-    margin: 0px;
-    transform: translate3d(0px, 44px, 0px);
+  position: absolute;
+  right: 0 !important;
+  margin: 0px;
+  transform: translate3d(0px, 44px, 0px);
+}
+
+.sidebar {
+  background-color: transparent;
+  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
+  backdrop-filter: blur(20px);
 }
