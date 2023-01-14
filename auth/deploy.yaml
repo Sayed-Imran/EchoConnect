@@ -45,6 +45,11 @@ spec:
             secretKeyRef:
               name: secret-envs
               key: GOOGLE_ID
+        - name: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
+          valueFrom:
+            secretKeyRef:
+              name: secret-envs
+              key: GOOGLE_APPLICATION_CREDENTIALS_CONTENT
 
 
 ---
