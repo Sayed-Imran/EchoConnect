@@ -1,4 +1,5 @@
 import shortuuid
+import os
 from scripts.db.mongo.connect_base.collections.user import User
 from scripts.db.mongo import mongo_client
 from scripts.schemas import RegisterSchema
@@ -9,6 +10,7 @@ from scripts.utils.security.jwt_util import JWT
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from scripts.config import AuthenticationConf
+from scripts.utils.cloud_storage_util import CloudStorageUtil
 
 
 class UserHandler:
@@ -23,6 +25,7 @@ class UserHandler:
         """
         self.user_conn = User(mongo_client)
         self.jwt_util = JWT()
+        self.cloud_storage = CloudStorageUtil()
 
     def register_user(self, register_user: RegisterSchema):
         """
@@ -40,7 +43,8 @@ class UserHandler:
             register_user.user_id = shortuuid.uuid()
             register_user.password = hash_password(register_user.password)
             register_user = register_user.dict()
-            register_user['user_name'] = register_user['first_name'] + '_' + register_user['last_name']
+            register_user['user_name'] = register_user['first_name'] + \
+                '_' + register_user['last_name']
             register_user['profile-image'] = 'https://storage.googleapis.com/echo-connect-objects/default-avatar.jpeg'
             self.user_conn.insert_user(register_user)
         except RegistrationError as re:
@@ -49,6 +53,23 @@ class UserHandler:
         except Exception as e:
             logger.exception(e.__traceback__)
             raise RegistrationError("Unable to register user") from e
+
+    async def upload_profile_image(self, file, user_data: dict):
+        try:
+            with open(file.filename, "wb") as f:
+                f.write(await file.read())
+            file_url = await self.cloud_storage.upload_blob(
+                bucket_name="echo-connect-objects",
+                source_file_name=file.filename,
+                destination_blob_name=user_data["user_id"] + "." +
+                file.filename.split(".")[-1],
+            )
+            os.remove(file.filename)
+            self.user_conn.update_user(
+                user_id=user_data['user_id'], data={"profile-image": file_url}
+            )
+        except Exception as e:
+            print(e.args)
 
     def login_user(self, email: str, password: str):
         """

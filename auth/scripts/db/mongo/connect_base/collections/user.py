@@ -14,3 +14,6 @@ class User(MongoCollectionBaseClass):
 
     def get_user(self, email: str):
         return self.find_one({UserKeys.KEY_EMAIL: email})
+
+    def update_user(self, user_id: str, data: dict):
+        return self.update_one({"user_id": user_id}, data, upsert=False)

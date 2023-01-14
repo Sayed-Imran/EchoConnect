@@ -11,3 +11,4 @@ class APIConstants:
     api_register_user = "/register"
     api_login_user = "/login"
     api_google_login_user = "/google_login"
+    profile_image= '/profile-image'

@@ -1,4 +1,4 @@
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Depends, UploadFile, File
 from fastapi.routing import APIRouter
 from scripts.constants import APIConstants
 from scripts.errors import RegistrationError, LoginError
@@ -9,6 +9,7 @@ from scripts.schemas import (
     GoogleLoginSchema,
 )
 from scripts.core.handlers.user_handler import UserHandler
+from scripts.utils.security.jwt_util import JWT
 
 router = APIRouter(prefix=APIConstants.api_authenticate_base)
 
@@ -44,6 +45,21 @@ def login_user(login_data: LoginSchema):
             detail="Internal Server Error",
         )
 
+@router.post(APIConstants.profile_image)
+async def profile_image(file: UploadFile = File(None), user_data = Depends(JWT().get_current_user)):
+    try:
+        user_handler = UserHandler()
+        await user_handler.upload_profile_image(file, user_data)
+        return DefaultResponseSchema(
+            message="Profile Pic Upload Successfull!"
+        )
+    except LoginError as le:
+        return DefaultResponseSchema(status="failed", message=le.args[0])
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal Server Error",
+        )
 
 @router.post(APIConstants.api_google_login_user)
 def google_login_user(login_data: GoogleLoginSchema):
