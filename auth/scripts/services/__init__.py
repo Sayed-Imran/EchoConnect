@@ -61,6 +61,23 @@ async def profile_image(file: UploadFile = File(None), user_data = Depends(JWT()
             detail="Internal Server Error",
         )
 
+
+@router.get(APIConstants.get_user)
+def get_user_details(user_data = Depends(JWT().get_current_user)):
+    try:
+        user_handler = UserHandler()
+        user = user_handler.get_user_details(user_data['email'])
+        user.pop('password')
+        return DefaultResponseSchema(
+            message="User Details Fetched Successfull!", data=user
+        )
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=e.args,
+        ) from e
+
 @router.post(APIConstants.api_google_login_user)
 def google_login_user(login_data: GoogleLoginSchema):
     try:

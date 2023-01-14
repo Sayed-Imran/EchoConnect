@@ -12,3 +12,4 @@ class APIConstants:
     api_login_user = "/login"
     api_google_login_user = "/google_login"
     profile_image= '/profile-image'
+    get_user= '/get-user'

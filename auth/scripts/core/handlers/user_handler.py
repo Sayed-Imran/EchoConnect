@@ -26,6 +26,9 @@ class UserHandler:
         self.user_conn = User(mongo_client)
         self.jwt_util = JWT()
         self.cloud_storage = CloudStorageUtil()
+    
+    def get_user_details(self, email: str):
+        return self.user_conn.get_user(email=email)
 
     def register_user(self, register_user: RegisterSchema):
         """
