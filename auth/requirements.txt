@@ -13,3 +13,4 @@ starlette==0.22.0
 urllib3==1.26.13
 uvicorn==0.20.0
 shortuuid
+google-cloud-storage==2.7.0
