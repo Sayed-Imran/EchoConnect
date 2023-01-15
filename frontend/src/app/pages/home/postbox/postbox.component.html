@@ -5,8 +5,8 @@
         <div class="col">
           <div class="row">
             <div class="col-md-4 ">
-              <img [src]="post?.user_profile || 'User'"
-                class="rounded-circle float-left p-0 m-0 me-3" height="50px" width="50px" alt="avatar" />
+              <img [src]="post?.user_profile || 'User'" class="rounded-circle float-left p-0 m-0 me-3" height="50px"
+                width="50px" alt="avatar" />
             </div>
             <div class="col cardDet">
               <h3 class="card-title font-weight-bold mb-2 cardData">{{post?.user_name || "Ashu"}}</h3>
@@ -27,8 +27,9 @@
       <div class="card-body">
         <div class="d-flex justify-content-between">
           <div>
-            <i class="fas fa-heart text-muted p-md-1 my-1 me-0" data-mdb-toggle="tooltip" data-mdb-placement="top"
-              title="I like it"></i>{{post?.likes}}
+            <i class="fa fa-heart p-md-1 my-1 me-0" [ngStyle]="{color: !post?.liked ? 'grey' : 'red' }"
+              aria-hidden="true"
+              title="I like it" (click)="likePost(post)"></i>{{post?.likes}}
           </div>
         </div>
       </div>

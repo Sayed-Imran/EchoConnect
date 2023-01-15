@@ -17,6 +17,7 @@ export class Config {
     "googleLogin": this.BASE_POINT_AUTH + "/google_login",
     // "fetchAllCards"
     "allCards": this.BASE_POINT_POST + "/get-posts",
+    "upload-post": this.BASE_POINT_POST + "/create-post",
 
   }
 }

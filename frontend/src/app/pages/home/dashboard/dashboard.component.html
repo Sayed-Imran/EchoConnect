@@ -38,9 +38,10 @@
     <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Upload Post</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click'); closeModal()"></button>
         </div>
         <div class="modal-body">
+          <div>{{selectedFile?.name}}</div>
             <input type="file" class="d-none" accept="'.png', '.jpg', '.jpeg', '.jfif', '.gif', '.PNG', '.JPG', '.JPEG', '.GIF', '.JFIF'" name="file" #fileInput
                 (click)="fileInput.value = ''" id="fileBlock" (change)="uploadBlockCsv($event)">
             <button class="btn btn-primary" (click)="toggleDOMELM('fileBlock')">
@@ -49,7 +50,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click'); uploadFile()">Save</button>
         </div>
     </ng-template>
     <div [ngClass]="enableSidebar ? 'col-md-9' : 'col-md-12'"

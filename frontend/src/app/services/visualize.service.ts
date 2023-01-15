@@ -10,4 +10,7 @@ export class visualizeService {
   allPost(payload: any): Observable<any> {
     return this.httpLayerService.get(Config.API_ENDPOINTS['allCards']);
   }
+  uploadPost(payload: any): Observable<any> {
+    return this.httpLayerService.post(Config.API_ENDPOINTS['upload-post'], payload, {});
+  }
 }
