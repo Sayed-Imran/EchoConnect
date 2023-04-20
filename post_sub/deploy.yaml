@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: post-crud-sub
-        image: gcr.io/level-slate-373806/dev-echo-connect-post-crud-sub
+        image: gcr.io/silver-approach-371713/dev-echo-connect-post-crud-sub
         env:
         - name: MONGO_URI
           valueFrom:

@@ -6,7 +6,7 @@ from scripts.core.handlers.posts_handler import PostsHandler
 
 subscriber = pubsub_v1.SubscriberClient()
 subscription_path = subscriber.subscription_path(
-    "level-slate-373806", "post-crud-event-sub"
+    "silver-approach-371713", "post-crud-events-sub"
 )
 posts_handler = PostsHandler()
 
